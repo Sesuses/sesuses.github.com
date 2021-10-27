@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<HTML>
+<head>
+<title>Test Game</title>
+</head>
+
+<body>
+<p>Score: <span id="score">0</span></p>
+<img src="aes.jpg" height="256px" width="256px" onclick="cookieClick(1)">
+
+<button onclick="buyCursor() ">LakeToya [<span id="Toyacost">15</span>] -- <span id="LakeToyas">0</span></button>
+<button onclick="buyShinpachi() ">Shinpachi [<span id="Shinpachicost">100</span>] -- <span id="Shinpachi">0</span></button>
+
+<script>
+var score = 0;
+
+function cookieClick(amount){
+    score = score + amount;
+    document.getElementById("score").innerHTML = score;
+};
+
+var LakeToyas = 0;
+var Shinpachi = 0;
+
+function buyCursor(){
+    var Toyacost = Math.floor(15 * Math.pow(1.1,LakeToyas));     //works out the cost of this cursor
+    if(score >= Toyacost){                                   //checks that the player can afford the cursor
+        LakeToyas = LakeToyas+1;                                   //increases number of cursors
+    	score = score - Toyacost;                          //removes the cookies spent
+        document.getElementById('LakeToyas').innerHTML = LakeToyas;  //updates the number of cursors for the user
+        document.getElementById('score').innerHTML = score; //updates the number of cookies for the user
+    };
+    var nextCost = Math.floor(10 * Math.pow(1.1,LakeToyas));       //works out the cost of the next cursor
+    document.getElementById('Toyacost').innerHTML = nextCost;  //updates the cursor cost for the user
+};
+
+function buyShinpachi(){
+    var Shinpachicost = Math.floor(100 * Math.pow(1.1,Shinpachi));     //works out the cost of this cursor
+    if(score >= Shinpachicost){                                   //checks that the player can afford the cursor
+        Shinpachi = Shinpachi+1;                                   //increases number of cursors
+    	score = score - Shinpachicost;                          //removes the cookies spent
+        document.getElementById('Shinpachi').innerHTML = Shinpachi;  //updates the number of cursors for the user
+        document.getElementById('score').innerHTML = score; //updates the number of cookies for the user
+    };
+    var nextCost = Math.floor(100 * Math.pow(1.1,Shinpachi));       //works out the cost of the next cursor
+    document.getElementById('Shinpachicost').innerHTML = nextCost;  //updates the cursor cost for the user
+};
+
+setInterval(function(){
+score = score + LakeToyas;
+score = score + Shinpachi * 5;
+document.getElementById("score").innerHTML = score;
+}, 1000);
+</script>
+</body>
+</HTML>
